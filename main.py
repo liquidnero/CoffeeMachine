@@ -117,7 +117,7 @@ def coins(data):
 power_on = True
 
 while power_on:
-    selection = input("What would you like? (espresso/latte/cappuccino/report) ")
+    selection = input("What would you like? (espresso/latte/cappuccino/report/off) ")
     out = output()
     if out:
         res_check = resources_check(out)
