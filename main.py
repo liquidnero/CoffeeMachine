@@ -1,28 +1,4 @@
-MENU = {
-    "espresso": {
-        "ingredients": {
-            "water": 50,
-            "coffee": 18,
-        },
-        "cost": 1.5,
-    },
-    "latte": {
-        "ingredients": {
-            "water": 200,
-            "milk": 150,
-            "coffee": 24,
-        },
-        "cost": 2.5,
-    },
-    "cappuccino": {
-        "ingredients": {
-            "water": 250,
-            "milk": 100,
-            "coffee": 24,
-        },
-        "cost": 3.0,
-    }
-}
+import output
 
 resources = {
     "water": 300,
@@ -32,25 +8,6 @@ resources = {
 
 acceptance = ['espresso', 'latte', "cappuccino", "off", "report"]
 profit = 0
-
-
-def espresso():
-    ingredients = MENU['espresso']['ingredients']
-    cost = MENU['espresso']['cost']
-    return ingredients, cost
-
-
-def latte():
-    ingredients = MENU['latte']['ingredients']
-    cost = MENU['latte']['cost']
-    return ingredients, cost
-
-
-def cappuccino():
-    ingredients = MENU['cappuccino']['ingredients']
-    cost = MENU['cappuccino']['cost']
-    return ingredients, cost
-
 
 def resources_check(data):
     if data[0]['water'] > resources['water']:
@@ -87,24 +44,10 @@ def money_check(data):
         return False
 
 
-def output():
-    if selection == "espresso":
-        data = espresso()
-        return data
-    elif selection == "latte":
-        data = latte()
-        return data
-    elif selection == "cappuccino":
-        data = cappuccino()
-        return data
-    else:
-        return False
-
-
-def power():
+def teardown():
     global power_on
     power_on = False
-
+    print("Bye!")
 
 def report():
     print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${profit}")
@@ -115,13 +58,11 @@ def coins(data):
     change = total - data[1]
     return total, change
 
-
 power_on = True
+
 while power_on:
-    selection = input("What would you like? (espresso/latte/cappuccino) ")
-    while selection not in acceptance:
-        selection = input("What would you like? (espresso/latte/cappuccino) ")
-    out = output()
+    selection = input("What would you like? (espresso/latte/cappuccino/report/off) ")
+    out = output.main(selection)
     if out:
         res_check = resources_check(out)
         if not res_check:
@@ -143,6 +84,6 @@ while power_on:
     elif selection == "report":
         report()
     else:
-        power()
+        teardown()
 
 
