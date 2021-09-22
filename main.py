@@ -100,11 +100,10 @@ def output():
     else:
         return False
 
-
-def power():
+def teardown():
     global power_on
     power_on = False
-
+    print("Bye!")
 
 def report():
     print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}ml\nCoffee: {resources['coffee']}g\nMoney: ${profit}")
@@ -115,12 +114,10 @@ def coins(data):
     change = total - data[1]
     return total, change
 
-
 power_on = True
+
 while power_on:
-    selection = input("What would you like? (espresso/latte/cappuccino) ")
-    while selection not in acceptance:
-        selection = input("What would you like? (espresso/latte/cappuccino) ")
+    selection = input("What would you like? (espresso/latte/cappuccino/report) ")
     out = output()
     if out:
         res_check = resources_check(out)
@@ -143,6 +140,6 @@ while power_on:
     elif selection == "report":
         report()
     else:
-        power()
+        teardown()
 
 
